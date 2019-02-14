@@ -1,0 +1,10 @@
+Word tearing happens at cache boundaries on Intel (but apparently not
+on AMD).
+
+The first form of the assignment in main.cpp results in a cache-aligned
+write/read, and you can see that it's atomic.  The second form
+carefully constructs a store that happens at cache boundaries, then
+does a read from another core to illustrate that it's not atomic.
+
+The computation to be at a cache line boundary is done by rounding up
+to the next cache line boundary, then adding 62.
